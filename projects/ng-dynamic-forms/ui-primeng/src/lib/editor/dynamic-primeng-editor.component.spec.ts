@@ -1,13 +1,13 @@
-import { TestBed, inject, ComponentFixture, waitForAsync } from "@angular/core/testing";
-import { DebugElement } from "@angular/core";
-import { UntypedFormGroup, UntypedFormControl } from "@angular/forms";
-import { By } from "@angular/platform-browser";
-import { Editor } from "primeng/editor";
-import { DynamicEditorModel, DynamicFormService } from "@ng-dynamic-forms/core";
-import { DynamicPrimeNGEditorComponent } from "./dynamic-primeng-editor.component";
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { Editor } from 'primeng/editor';
+import { DynamicEditorModel, DynamicFormService } from '@soulonfire/ng-dynamic-forms-core';
+import { DynamicPrimeNGEditorComponent } from './dynamic-primeng-editor.component';
 
-xdescribe("DynamicPrimeNGEditorComponent test suite", () => {
-    const testModel = new DynamicEditorModel({id: "editor"});
+xdescribe('DynamicPrimeNGEditorComponent test suite', () => {
+    const testModel = new DynamicEditorModel({id: 'editor'});
     const formModel = [testModel];
 
     let formGroup: UntypedFormGroup;
@@ -20,25 +20,25 @@ xdescribe("DynamicPrimeNGEditorComponent test suite", () => {
         TestBed.configureTestingModule({
             imports: [DynamicPrimeNGEditorComponent]
         }).compileComponents().then(() => {
+            const service = TestBed.inject(DynamicFormService);
+            formGroup = service.createFormGroup(formModel);
+
             fixture = TestBed.createComponent(DynamicPrimeNGEditorComponent);
 
             component = fixture.componentInstance;
             debugElement = fixture.debugElement;
+
+            // Initialize group and model before any change detection
+            component.group = formGroup;
+            component.model = testModel;
+
+            fixture.detectChanges();
+
+            testElement = debugElement.query(By.css(`p-editor[id="${testModel.id}"]`));
         });
     }));
 
-    beforeEach(inject([DynamicFormService], (service: DynamicFormService) => {
-        formGroup = service.createFormGroup(formModel);
-
-        component.group = formGroup;
-        component.model = testModel;
-
-        fixture.detectChanges();
-
-        testElement = debugElement.query(By.css(`p-editor[id="${testModel.id}"]`));
-    }));
-
-    it("should initialize correctly", () => {
+    it('should initialize correctly', () => {
         expect(component.control instanceof UntypedFormControl).toBe(true);
         expect(component.group instanceof UntypedFormGroup).toBe(true);
         expect(component.model instanceof DynamicEditorModel).toBe(true);
@@ -59,38 +59,38 @@ xdescribe("DynamicPrimeNGEditorComponent test suite", () => {
         expect(component.showErrorMessages).toBe(false);
     });
 
-    it("should have an p-editor element", () => {
+    it('should have an p-editor element', () => {
         expect(testElement instanceof DebugElement).toBe(true);
     });
 
-    it("should emit blur event", () => {
-        spyOn(component.blur, "emit");
+    it('should emit blur event', () => {
+        spyOn(component.blur, 'emit');
 
         component.onBlur(null);
 
         expect(component.blur.emit).toHaveBeenCalled();
     });
 
-    it("should emit change event", () => {
-        spyOn(component.change, "emit");
+    it('should emit change event', () => {
+        spyOn(component.change, 'emit');
 
         component.onChange(null);
 
         expect(component.change.emit).toHaveBeenCalled();
     });
 
-    it("should emit focus event", () => {
-        spyOn(component.focus, "emit");
+    it('should emit focus event', () => {
+        spyOn(component.focus, 'emit');
 
         component.onFocus(null);
 
         expect(component.focus.emit).toHaveBeenCalled();
     });
 
-    it("should emit custom event", () => {
-        spyOn(component.customEvent, "emit");
+    it('should emit custom event', () => {
+        spyOn(component.customEvent, 'emit');
 
-        component.onCustomEvent(null, "eventType");
+        component.onCustomEvent(null, 'eventType');
 
         expect(component.customEvent.emit).toHaveBeenCalled();
     });

@@ -3,7 +3,6 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
     "module": "es2020",
@@ -12,66 +11,67 @@
     "importHelpers": true,
     "strict": true,
     "target": "ES2022",
+    "skipLibCheck": true,
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2018",
+      "es2022",
       "dom"
     ],
     "paths": {
-      "@ng-dynamic-forms/core": [
+      "@soulonfire/ng-dynamic-forms-core": [
         "dist/ng-dynamic-forms/core"
       ],
-      "@ng-dynamic-forms/core/*": [
+      "@soulonfire/ng-dynamic-forms-core/*": [
         "dist/ng-dynamic-forms/core/*"
       ],
-      "@ng-dynamic-forms/ui-basic": [
+      "@soulonfire/ng-dynamic-forms-ui-basic": [
         "dist/ng-dynamic-forms/ui-basic"
       ],
-      "@ng-dynamic-forms/ui-basic/*": [
+      "@soulonfire/ng-dynamic-forms-ui-basic/*": [
         "dist/ng-dynamic-forms/ui-basic/*"
       ],
-      "@ng-dynamic-forms/ui-bootstrap": [
+      "@soulonfire/ng-dynamic-forms-ui-bootstrap": [
         "dist/ng-dynamic-forms/ui-bootstrap"
       ],
-      "@ng-dynamic-forms/ui-bootstrap/*": [
+      "@soulonfire/ng-dynamic-forms-ui-bootstrap/*": [
         "dist/ng-dynamic-forms/ui-bootstrap/*"
       ],
-      "@ng-dynamic-forms/ui-foundation": [
+      "@soulonfire/ng-dynamic-forms-ui-foundation": [
         "dist/ng-dynamic-forms/ui-foundation"
       ],
-      "@ng-dynamic-forms/ui-foundation/*": [
+      "@soulonfire/ng-dynamic-forms-ui-foundation/*": [
         "dist/ng-dynamic-forms/ui-foundation/*"
       ],
-      "@ng-dynamic-forms/ui-ionic": [
+      "@soulonfire/ng-dynamic-forms-ui-ionic": [
         "dist/ng-dynamic-forms/ui-ionic"
       ],
-      "@ng-dynamic-forms/ui-ionic/*": [
+      "@soulonfire/ng-dynamic-forms-ui-ionic/*": [
         "dist/ng-dynamic-forms/ui-ionic/*"
       ],
-      "@ng-dynamic-forms/ui-material": [
+      "@soulonfire/ng-dynamic-forms-ui-material": [
         "dist/ng-dynamic-forms/ui-material"
       ],
-      "@ng-dynamic-forms/ui-material/*": [
+      "@soulonfire/ng-dynamic-forms-ui-material/*": [
         "dist/ng-dynamic-forms/ui-material/*"
       ],
-      "@ng-dynamic-forms/ui-ng-bootstrap": [
+      "@soulonfire/ng-dynamic-forms-ui-ng-bootstrap": [
         "dist/ng-dynamic-forms/ui-ng-bootstrap"
       ],
-      "@ng-dynamic-forms/ui-ng-bootstrap/*": [
+      "@soulonfire/ng-dynamic-forms-ui-ng-bootstrap/*": [
         "dist/ng-dynamic-forms/ui-ng-bootstrap/*"
       ],
-      "@ng-dynamic-forms/ui-primeng": [
+      "@soulonfire/ng-dynamic-forms-ui-primeng": [
         "dist/ng-dynamic-forms/ui-primeng"
       ],
-      "@ng-dynamic-forms/ui-primeng/*": [
+      "@soulonfire/ng-dynamic-forms-ui-primeng/*": [
         "dist/ng-dynamic-forms/ui-primeng/*"
       ],
-      "@ng-dynamic-forms/ui-ngx-bootstrap": [
+      "@soulonfire/ng-dynamic-forms-ui-ngx-bootstrap": [
         "dist/ng-dynamic-forms/ui-ngx-bootstrap"
       ],
-      "@ng-dynamic-forms/ui-ngx-bootstrap/*": [
+      "@soulonfire/ng-dynamic-forms-ui-ngx-bootstrap/*": [
         "dist/ng-dynamic-forms/ui-ngx-bootstrap/*"
       ]
     },

@@ -15,15 +15,12 @@
       },
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": {
-              "base": "dist/ng-dynamic-forms/sample"
-            },
+            "outputPath": "dist/ng-dynamic-forms/sample",
             "index": "src/index.html",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -34,11 +31,12 @@
               "src/styles.scss"
             ],
             "scripts": [],
+            "vendorChunk": true,
             "extractLicenses": false,
+            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true,
-            "browser": "src/main.ts"
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -53,6 +51,8 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -102,14 +102,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         }
@@ -120,30 +117,17 @@
       "projectType": "application",
       "prefix": "",
       "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ng-dynamic-forms:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ng-dynamic-forms:serve:production"
-            }
-          }
-        },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "e2e/**/*.ts"
             ]
           }
         }
       }
     },
-    "@ng-dynamic-forms/core": {
+    "@soulonfire/ng-dynamic-forms-core": {
       "root": "projects/ng-dynamic-forms/core",
       "sourceRoot": "projects/ng-dynamic-forms/core/src",
       "projectType": "library",
@@ -170,20 +154,17 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-dynamic-forms/core/tsconfig.lib.json",
-              "projects/ng-dynamic-forms/core/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-dynamic-forms/core/**/*.ts",
+              "projects/ng-dynamic-forms/core/**/*.html"
             ]
           }
         }
       }
     },
-    "@ng-dynamic-forms/ui-basic": {
+    "@soulonfire/ng-dynamic-forms-ui-basic": {
       "root": "projects/ng-dynamic-forms/ui-basic",
       "sourceRoot": "projects/ng-dynamic-forms/ui-basic/src",
       "projectType": "library",
@@ -210,20 +191,17 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-dynamic-forms/ui-basic/tsconfig.lib.json",
-              "projects/ng-dynamic-forms/ui-basic/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-dynamic-forms/ui-basic/**/*.ts",
+              "projects/ng-dynamic-forms/ui-basic/**/*.html"
             ]
           }
         }
       }
     },
-    "@ng-dynamic-forms/ui-bootstrap": {
+    "@soulonfire/ng-dynamic-forms-ui-bootstrap": {
       "root": "projects/ng-dynamic-forms/ui-bootstrap",
       "sourceRoot": "projects/ng-dynamic-forms/ui-bootstrap/src",
       "projectType": "library",
@@ -250,20 +228,17 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-dynamic-forms/ui-bootstrap/tsconfig.lib.json",
-              "projects/ng-dynamic-forms/ui-bootstrap/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-dynamic-forms/ui-bootstrap/**/*.ts",
+              "projects/ng-dynamic-forms/ui-bootstrap/**/*.html"
             ]
           }
         }
       }
     },
-    "@ng-dynamic-forms/ui-foundation": {
+    "@soulonfire/ng-dynamic-forms-ui-foundation": {
       "root": "projects/ng-dynamic-forms/ui-foundation",
       "sourceRoot": "projects/ng-dynamic-forms/ui-foundation/src",
       "projectType": "library",
@@ -290,20 +265,17 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-dynamic-forms/ui-foundation/tsconfig.lib.json",
-              "projects/ng-dynamic-forms/ui-foundation/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-dynamic-forms/ui-foundation/**/*.ts",
+              "projects/ng-dynamic-forms/ui-foundation/**/*.html"
             ]
           }
         }
       }
     },
-    "@ng-dynamic-forms/ui-ionic": {
+    "@soulonfire/ng-dynamic-forms-ui-ionic": {
       "root": "projects/ng-dynamic-forms/ui-ionic",
       "sourceRoot": "projects/ng-dynamic-forms/ui-ionic/src",
       "projectType": "library",
@@ -330,20 +302,17 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-dynamic-forms/ui-ionic/tsconfig.lib.json",
-              "projects/ng-dynamic-forms/ui-ionic/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-dynamic-forms/ui-ionic/**/*.ts",
+              "projects/ng-dynamic-forms/ui-ionic/**/*.html"
             ]
           }
         }
       }
     },
-    "@ng-dynamic-forms/ui-material": {
+    "@soulonfire/ng-dynamic-forms-ui-material": {
       "root": "projects/ng-dynamic-forms/ui-material",
       "sourceRoot": "projects/ng-dynamic-forms/ui-material/src",
       "projectType": "library",
@@ -370,20 +339,17 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-dynamic-forms/ui-material/tsconfig.lib.json",
-              "projects/ng-dynamic-forms/ui-material/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-dynamic-forms/ui-material/**/*.ts",
+              "projects/ng-dynamic-forms/ui-material/**/*.html"
             ]
           }
         }
       }
     },
-    "@ng-dynamic-forms/ui-ng-bootstrap": {
+    "@soulonfire/ng-dynamic-forms-ui-ng-bootstrap": {
       "root": "projects/ng-dynamic-forms/ui-ng-bootstrap",
       "sourceRoot": "projects/ng-dynamic-forms/ui-ng-bootstrap/src",
       "projectType": "library",
@@ -410,20 +376,17 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-dynamic-forms/ui-ng-bootstrap/tsconfig.lib.json",
-              "projects/ng-dynamic-forms/ui-ng-bootstrap/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-dynamic-forms/ui-ng-bootstrap/**/*.ts",
+              "projects/ng-dynamic-forms/ui-ng-bootstrap/**/*.html"
             ]
           }
         }
       }
     },
-    "@ng-dynamic-forms/ui-primeng": {
+    "@soulonfire/ng-dynamic-forms-ui-primeng": {
       "root": "projects/ng-dynamic-forms/ui-primeng",
       "sourceRoot": "projects/ng-dynamic-forms/ui-primeng/src",
       "projectType": "library",
@@ -450,20 +413,17 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-dynamic-forms/ui-primeng/tsconfig.lib.json",
-              "projects/ng-dynamic-forms/ui-primeng/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-dynamic-forms/ui-primeng/**/*.ts",
+              "projects/ng-dynamic-forms/ui-primeng/**/*.html"
             ]
           }
         }
       }
     },
-    "@ng-dynamic-forms/ui-ngx-bootstrap": {
+    "@soulonfire/ng-dynamic-forms-ui-ngx-bootstrap": {
       "projectType": "library",
       "root": "projects/ng-dynamic-forms/ui-ngx-bootstrap",
       "sourceRoot": "projects/ng-dynamic-forms/ui-ngx-bootstrap/src",
@@ -490,14 +450,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ng-dynamic-forms/ui-ngx-bootstrap/tsconfig.lib.json",
-              "projects/ng-dynamic-forms/ui-ngx-bootstrap/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ng-dynamic-forms/ui-ngx-bootstrap/**/*.ts",
+              "projects/ng-dynamic-forms/ui-ngx-bootstrap/**/*.html"
             ]
           }
         }
@@ -506,31 +463,5 @@
   },
   "cli": {
     "analytics": false
-  },
-  "schematics": {
-    "@schematics/angular:component": {
-      "type": "component"
-    },
-    "@schematics/angular:directive": {
-      "type": "directive"
-    },
-    "@schematics/angular:service": {
-      "type": "service"
-    },
-    "@schematics/angular:guard": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:interceptor": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:module": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:pipe": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:resolver": {
-      "typeSeparator": "."
-    }
   }
 }

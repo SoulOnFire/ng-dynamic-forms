@@ -1,20 +1,20 @@
-import { EventEmitter } from "@angular/core";
-import { AbstractControl, UntypedFormGroup } from "@angular/forms";
-import { DynamicFormControl } from "./dynamic-form-control-interface";
-import { DynamicFormControlCustomEvent } from "./dynamic-form-control-event";
-import { DynamicFormControlModel } from "../model/dynamic-form-control.model";
+import { EventEmitter } from '@angular/core';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
+import { DynamicFormControl } from './dynamic-form-control-interface';
+import { DynamicFormControlCustomEvent } from './dynamic-form-control-event';
+import { DynamicFormControlModel } from '../model/dynamic-form-control.model';
 import {
     DynamicFormControlLayout,
     DynamicFormControlLayoutContext,
     DynamicFormControlLayoutPlace
-} from "../model/misc/dynamic-form-control-layout.model";
-import { DynamicFormValidationService } from "../service/dynamic-form-validation.service";
+} from '../model/misc/dynamic-form-control-layout.model';
+import { DynamicFormValidationService } from '../service/dynamic-form-validation.service';
 import {
     DynamicFormLayout,
     DynamicFormLayoutService,
     DynamicFormControlTemplates
-} from "../service/dynamic-form-layout.service";
-import { isString } from "../utils/core.utils";
+} from '../service/dynamic-form-layout.service';
+import { isString } from '../utils/core.utils';
 
 export abstract class DynamicFormControlComponent implements DynamicFormControl {
     formLayout?: DynamicFormLayout;
@@ -30,10 +30,17 @@ export abstract class DynamicFormControlComponent implements DynamicFormControl 
 
     private _hasFocus = false;
 
-    protected constructor(protected layoutService: DynamicFormLayoutService, protected validationService: DynamicFormValidationService) {
+    // TODO: Migrate to inject() function - base class constructor, requires careful migration
+    // eslint-disable-next-line @angular-eslint/prefer-inject
+    protected constructor(protected layoutService: DynamicFormLayoutService,
+                          // eslint-disable-next-line @angular-eslint/prefer-inject
+                          protected validationService: DynamicFormValidationService) {
     }
 
     get control(): AbstractControl | never {
+        if (!this.group || !this.model) {
+            throw new Error('Form group and model must be initialized before accessing control');
+        }
         const control = this.group.get(this.model.id);
 
         if (control === null) {
@@ -44,6 +51,9 @@ export abstract class DynamicFormControlComponent implements DynamicFormControl 
     }
 
     get id(): string {
+        if (!this.model) {
+            return '';
+        }
         return this.layoutService.getElementId(this.model);
     }
 
@@ -52,19 +62,41 @@ export abstract class DynamicFormControlComponent implements DynamicFormControl 
     }
 
     get isInvalid(): boolean {
-        return this.control.invalid;
+        try {
+            return this.control ? this.control.invalid : false;
+        } catch {
+            return false;
+        }
     }
 
     get isValid(): boolean {
-        return this.control.valid;
+        try {
+            return this.control ? this.control.valid : false;
+        } catch {
+            return false;
+        }
     }
 
     get errorMessages(): string[] {
-        return this.validationService.createErrorMessages(this.control, this.model);
+        try {
+            if (!this.model || !this.control) {
+                return [];
+            }
+            return this.validationService.createErrorMessages(this.control, this.model);
+        } catch {
+            return [];
+        }
     }
 
     get showErrorMessages(): boolean {
-        return this.validationService.showErrorMessages(this.control, this.model, this.hasFocus);
+        try {
+            if (!this.model || !this.control) {
+                return false;
+            }
+            return this.validationService.showErrorMessages(this.control, this.model, this.hasFocus);
+        } catch {
+            return false;
+        }
     }
 
     getClass(context: DynamicFormControlLayoutContext, place: DynamicFormControlLayoutPlace,

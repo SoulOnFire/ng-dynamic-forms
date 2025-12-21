@@ -1,13 +1,13 @@
-import { TestBed, inject, ComponentFixture, waitForAsync } from "@angular/core/testing";
-import { DebugElement } from "@angular/core";
-import { UntypedFormGroup, UntypedFormControl } from "@angular/forms";
-import { By } from "@angular/platform-browser";
-import { IonTextarea } from "@ionic/angular";
-import { DynamicFormService, DynamicTextAreaModel } from "@ng-dynamic-forms/core";
-import { DynamicIonicTextAreaComponent } from "./dynamic-ionic-textarea.component";
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { IonTextarea } from '@ionic/angular';
+import { DynamicFormService, DynamicTextAreaModel } from '@soulonfire/ng-dynamic-forms-core';
+import { DynamicIonicTextAreaComponent } from './dynamic-ionic-textarea.component';
 
-describe("DynamicIonicTextAreaComponent test suite", () => {
-    const testModel = new DynamicTextAreaModel({id: "textarea"});
+describe('DynamicIonicTextAreaComponent test suite', () => {
+    const testModel = new DynamicTextAreaModel({id: 'textarea'});
     const formModel = [testModel];
 
     let formGroup: UntypedFormGroup;
@@ -20,25 +20,25 @@ describe("DynamicIonicTextAreaComponent test suite", () => {
         TestBed.configureTestingModule({
             imports: [DynamicIonicTextAreaComponent]
         }).compileComponents().then(() => {
+            const service = TestBed.inject(DynamicFormService);
+            formGroup = service.createFormGroup(formModel);
+
             fixture = TestBed.createComponent(DynamicIonicTextAreaComponent);
 
             component = fixture.componentInstance;
             debugElement = fixture.debugElement;
+
+            // Initialize group and model before any change detection
+            component.group = formGroup;
+            component.model = testModel;
+
+            fixture.detectChanges();
+
+            testElement = debugElement.query(By.css(`ion-textarea[id="${testModel.id}"]`));
         });
     }));
 
-    beforeEach(inject([DynamicFormService], (service: DynamicFormService) => {
-        formGroup = service.createFormGroup(formModel);
-
-        component.group = formGroup;
-        component.model = testModel;
-
-        fixture.detectChanges();
-
-        testElement = debugElement.query(By.css(`ion-textarea[id="${testModel.id}"]`));
-    }));
-
-    it("should initialize correctly", () => {
+    it('should initialize correctly', () => {
         expect(component.control instanceof UntypedFormControl).toBe(true);
         expect(component.group instanceof UntypedFormGroup).toBe(true);
         expect(component.model instanceof DynamicTextAreaModel).toBe(true);
@@ -58,28 +58,28 @@ describe("DynamicIonicTextAreaComponent test suite", () => {
         expect(component.showErrorMessages).toBe(false);
     });
 
-    it("should have an ion-textarea element", () => {
+    it('should have an ion-textarea element', () => {
         expect(testElement instanceof DebugElement).toBe(true);
     });
 
-    it("should emit blur event", () => {
-        spyOn(component.blur, "emit");
+    it('should emit blur event', () => {
+        spyOn(component.blur, 'emit');
 
         component.onBlur(null);
 
         expect(component.blur.emit).toHaveBeenCalled();
     });
 
-    it("should emit change event", () => {
-        spyOn(component.change, "emit");
+    it('should emit change event', () => {
+        spyOn(component.change, 'emit');
 
         component.onChange(null);
 
         expect(component.change.emit).toHaveBeenCalled();
     });
 
-    it("should emit focus event", () => {
-        spyOn(component.focus, "emit");
+    it('should emit focus event', () => {
+        spyOn(component.focus, 'emit');
 
         component.onFocus(null);
 

@@ -2,7 +2,7 @@
 
 ## Installation
 ```
-npm i @ng-dynamic-forms/ui-basic -S
+npm i @soulonfire/ng-dynamic-forms-ui-basic -S
 ```
 
 ## Import

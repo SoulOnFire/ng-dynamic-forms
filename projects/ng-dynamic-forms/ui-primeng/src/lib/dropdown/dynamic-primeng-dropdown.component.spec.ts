@@ -1,13 +1,13 @@
-import { TestBed, inject, ComponentFixture, waitForAsync } from "@angular/core/testing";
-import { DebugElement } from "@angular/core";
-import { UntypedFormGroup, UntypedFormControl } from "@angular/forms";
-import { By } from "@angular/platform-browser";
-import { Dropdown } from "primeng/dropdown";
-import { DynamicFormService, DynamicSelectModel } from "@ng-dynamic-forms/core";
-import { DynamicPrimeNGDropdownComponent } from "./dynamic-primeng-dropdown.component";
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { Select } from 'primeng/select';
+import { DynamicFormService, DynamicSelectModel } from '@soulonfire/ng-dynamic-forms-core';
+import { DynamicPrimeNGDropdownComponent } from './dynamic-primeng-dropdown.component';
 
-describe("DynamicPrimeNGDropdownComponent test suite", () => {
-    const testModel = new DynamicSelectModel({id: "select", options: [{value: "One"}, {value: "Two"}], value: "One"});
+describe('DynamicPrimeNGDropdownComponent test suite', () => {
+    const testModel = new DynamicSelectModel({id: 'select', options: [{value: 'One'}, {value: 'Two'}], value: 'One'});
     const formModel = [testModel];
 
     let formGroup: UntypedFormGroup;
@@ -20,30 +20,30 @@ describe("DynamicPrimeNGDropdownComponent test suite", () => {
         TestBed.configureTestingModule({
             imports: [DynamicPrimeNGDropdownComponent]
         }).compileComponents().then(() => {
+            const service = TestBed.inject(DynamicFormService);
+            formGroup = service.createFormGroup(formModel);
+
             fixture = TestBed.createComponent(DynamicPrimeNGDropdownComponent);
 
             component = fixture.componentInstance;
             debugElement = fixture.debugElement;
+
+            // Initialize group and model before any change detection
+            component.group = formGroup;
+            component.model = testModel;
+
+            fixture.detectChanges();
+
+            testElement = debugElement.query(By.css(`p-select[id="${testModel.id}"]`));
         });
     }));
 
-    beforeEach(inject([DynamicFormService], (service: DynamicFormService) => {
-        formGroup = service.createFormGroup(formModel);
-
-        component.group = formGroup;
-        component.model = testModel;
-
-        fixture.detectChanges();
-
-        testElement = debugElement.query(By.css(`p-dropdown[id="${testModel.id}"]`));
-    }));
-
-    it("should initialize correctly", () => {
+    it('should initialize correctly', () => {
         expect(component.control instanceof UntypedFormControl).toBe(true);
         expect(component.group instanceof UntypedFormGroup).toBe(true);
         expect(component.model instanceof DynamicSelectModel).toBe(true);
-        expect(component.pDropdown instanceof Dropdown).toBe(true);
-        expect(component.viewChild instanceof Dropdown).toBe(true);
+        expect(component.pDropdown instanceof Select).toBe(true);
+        expect(component.viewChild instanceof Select).toBe(true);
 
         expect(component.blur).toBeDefined();
         expect(component.change).toBeDefined();
@@ -59,28 +59,28 @@ describe("DynamicPrimeNGDropdownComponent test suite", () => {
         expect(component.showErrorMessages).toBe(false);
     });
 
-    it("should have an p-dropdown element", () => {
+    it('should have an p-select element', () => {
         expect(testElement instanceof DebugElement).toBe(true);
     });
 
-    it("should emit blur event", () => {
-        spyOn(component.blur, "emit");
+    it('should emit blur event', () => {
+        spyOn(component.blur, 'emit');
 
         component.onBlur(null);
 
         expect(component.blur.emit).toHaveBeenCalled();
     });
 
-    it("should emit change event", () => {
-        spyOn(component.change, "emit");
+    it('should emit change event', () => {
+        spyOn(component.change, 'emit');
 
         component.onChange(null);
 
         expect(component.change.emit).toHaveBeenCalled();
     });
 
-    it("should emit focus event", () => {
-        spyOn(component.focus, "emit");
+    it('should emit focus event', () => {
+        spyOn(component.focus, 'emit');
 
         component.onFocus(null);
 

@@ -1,14 +1,14 @@
-import { TestBed, inject, ComponentFixture, waitForAsync } from "@angular/core/testing";
-import { DebugElement } from "@angular/core";
-import { ReactiveFormsModule, UntypedFormGroup, UntypedFormControl } from "@angular/forms";
-import { NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { By } from "@angular/platform-browser";
-import { NgbTimepicker, NgbTimepickerModule } from "@ng-bootstrap/ng-bootstrap";
-import { DynamicFormsCoreModule, DynamicFormService, DynamicTimePickerModel } from "@ng-dynamic-forms/core";
-import { DynamicNGBootstrapTimePickerComponent } from "./dynamic-ng-bootstrap-timepicker.component";
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
+import { NgbTimepicker, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicFormsCoreModule, DynamicFormService, DynamicTimePickerModel } from '@soulonfire/ng-dynamic-forms-core';
+import { DynamicNGBootstrapTimePickerComponent } from './dynamic-ng-bootstrap-timepicker.component';
 
-describe("DynamicNGBootstrapTimePickerComponent test suite", () => {
-    const testModel = new DynamicTimePickerModel({id: "timepicker"});
+describe('DynamicNGBootstrapTimePickerComponent test suite', () => {
+    const testModel = new DynamicTimePickerModel({id: 'timepicker'});
     const formModel = [testModel];
 
     let formGroup: UntypedFormGroup;
@@ -27,25 +27,25 @@ describe("DynamicNGBootstrapTimePickerComponent test suite", () => {
         DynamicNGBootstrapTimePickerComponent
     ]
 }).compileComponents().then(() => {
+            const service = TestBed.inject(DynamicFormService);
+            formGroup = service.createFormGroup(formModel);
+
             fixture = TestBed.createComponent(DynamicNGBootstrapTimePickerComponent);
 
             component = fixture.componentInstance;
             debugElement = fixture.debugElement;
+
+            // Initialize group and model before any change detection
+            component.group = formGroup;
+            component.model = testModel;
+
+            fixture.detectChanges();
+
+            testElement = debugElement.query(By.css(`ngb-timepicker[id="${testModel.id}"]`));
         });
     }));
 
-    beforeEach(inject([DynamicFormService], (service: DynamicFormService) => {
-        formGroup = service.createFormGroup(formModel);
-
-        component.group = formGroup;
-        component.model = testModel;
-
-        fixture.detectChanges();
-
-        testElement = debugElement.query(By.css(`ngb-timepicker[id="${testModel.id}"]`));
-    }));
-
-    it("should initialize correctly", () => {
+    it('should initialize correctly', () => {
         expect(component.control instanceof UntypedFormControl).toBe(true);
         expect(component.group instanceof UntypedFormGroup).toBe(true);
         expect(component.model instanceof DynamicTimePickerModel).toBe(true);
@@ -65,28 +65,28 @@ describe("DynamicNGBootstrapTimePickerComponent test suite", () => {
         expect(component.showErrorMessages).toBe(false);
     });
 
-    it("should have an ngb-timepicker element", () => {
+    it('should have an ngb-timepicker element', () => {
         expect(testElement instanceof DebugElement).toBe(true);
     });
 
-    it("should emit blur event", () => {
-        spyOn(component.blur, "emit");
+    it('should emit blur event', () => {
+        spyOn(component.blur, 'emit');
 
         component.onBlur(null);
 
         expect(component.blur.emit).toHaveBeenCalled();
     });
 
-    it("should emit change event", () => {
-        spyOn(component.change, "emit");
+    it('should emit change event', () => {
+        spyOn(component.change, 'emit');
 
         component.onChange(null);
 
         expect(component.change.emit).toHaveBeenCalled();
     });
 
-    it("should emit focus event", () => {
-        spyOn(component.focus, "emit");
+    it('should emit focus event', () => {
+        spyOn(component.focus, 'emit');
 
         component.onFocus(null);
 
