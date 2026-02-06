@@ -1,6 +1,6 @@
 {
   "name": "@soulonfire/ng-dynamic-forms-core",
-  "version": "21.1.1",
+  "version": "21.1.3",
   "description": "A rapid form development library for Angular",
   "keywords": [
     "angular",
@@ -28,9 +28,9 @@
     "url": "https://github.com/danielhokanson/ng-dynamic-forms/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^21.1.1",
-    "@angular/core": "^21.1.1",
-    "@angular/forms": "^21.1.1",
+    "@angular/common": "^21.1.3",
+    "@angular/core": "^21.1.3",
+    "@angular/forms": "^21.1.3",
     "core-js": "^3.39.0",
     "rxjs": "^7.8.1"
   },
