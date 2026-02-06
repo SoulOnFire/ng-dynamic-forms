@@ -20,8 +20,9 @@ export function isString(value: any): value is string {
     return typeof value === 'string';
 }
 
-export function tryParseRegExpLiteral(input: string): RegExp | null {
+export function tryParseRegExpLiteral(input: string | RegExp): RegExp | null {
   try {
+    if (input instanceof RegExp) return input;
     if (typeof input !== 'string' || input[0] !== '/') return null;
 
     const lastSlash = input.lastIndexOf('/');
