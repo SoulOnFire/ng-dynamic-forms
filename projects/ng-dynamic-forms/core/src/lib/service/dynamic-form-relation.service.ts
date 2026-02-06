@@ -10,7 +10,7 @@ import {
 import { DynamicFormControlCondition, DynamicFormControlRelation } from '../model/misc/dynamic-form-control-relation.model';
 import { distinctUntilChanged, startWith } from 'rxjs/operators';
 import { merge, Subscription } from 'rxjs';
-import { isString } from '../utils/core.utils';
+import { isString, tryParseRegExpLiteral } from '../utils/core.utils';
 
 export type DynamicRelatedFormControls = { [path: string]: UntypedFormControl };
 
@@ -66,6 +66,7 @@ export class DynamicFormRelationService {
         return relation.when.reduce<boolean>((hasMatched, condition, index) => {
             const path = condition.rootPath ?? condition.id;
             let relatedFormControl;
+            let regExCondition: RegExp | null =  tryParseRegExpLiteral(condition.value);
 
             for (const [key, control] of Object.entries(relatedFormControls)) {
                 if (key === path) {
@@ -83,7 +84,7 @@ export class DynamicFormRelationService {
                     return true;
                 }
 
-                return condition.value === relatedFormControl.value || condition.status === relatedFormControl.status;
+                return condition.value === relatedFormControl.value || condition.status === relatedFormControl.status || regExCondition?.test(relatedFormControl.value) === true;
             }
 
             if (relatedFormControl && relation.match === matcher.opposingMatch) {
@@ -95,7 +96,7 @@ export class DynamicFormRelationService {
                     return false;
                 }
 
-                return !(condition.value === relatedFormControl.value || condition.status === relatedFormControl.status);
+                return !(condition.value === relatedFormControl.value || condition.status === relatedFormControl.status || regExCondition?.test(relatedFormControl.value) === true);
             }
 
             return false;

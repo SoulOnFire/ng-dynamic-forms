@@ -19,3 +19,19 @@ export function isObject(value: any): value is object {
 export function isString(value: any): value is string {
     return typeof value === 'string';
 }
+
+export function tryParseRegExpLiteral(input: string): RegExp | null {
+  try {
+    if (typeof input !== 'string' || input[0] !== '/') return null;
+
+    const lastSlash = input.lastIndexOf('/');
+    if (lastSlash <= 0) return null;
+
+    const pattern = input.slice(1, lastSlash);
+    const flags = input.slice(lastSlash + 1);
+
+    return new RegExp(pattern, flags);
+  } catch {
+    return null;
+  }
+}
