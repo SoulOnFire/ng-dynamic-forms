@@ -127,12 +127,12 @@ export const CLEAN_VALUE_MATCHER: DynamicFormControlMatcher = {
             innerModel instanceof DynamicCheckboxGroupModel ||
             innerModel instanceof DynamicFormArrayGroupModel
           ) {
-            cleanGroup(innerModel.group, required, innerControl as any['controls']);
+            cleanGroup(innerModel.group, required, (innerControl as any)['controls']);
           }
         });
     };
     if (model instanceof DynamicFormGroupModel && !model.hidden) {
-      cleanGroup(model.group, hasMatch, control as any['controls']);
+      cleanGroup(model.group, hasMatch, (control as any)['controls']);
     } else if (model instanceof DynamicFormValueControlModel && model.required !== hasMatch) {
       if (hasMatch) {
         control.reset();
