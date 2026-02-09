@@ -324,6 +324,7 @@ export abstract class DynamicFormControlContainerComponent implements OnChanges,
             }
 
             this.subscriptions.push(this.model.disabledChanges.subscribe(value => this.onModelDisabledUpdates(value)));
+            this.subscriptions.push(this.model.hiddenChanges.subscribe(value => this.markForCheck()));
 
             if (this.model instanceof DynamicFormValueControlModel) {
                 const model = this.model as DynamicFormValueControlModel<any>;

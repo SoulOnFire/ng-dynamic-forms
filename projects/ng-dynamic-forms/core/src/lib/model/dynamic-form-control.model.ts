@@ -25,7 +25,7 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     @serializable() asyncValidators: DynamicValidatorsConfig | null;
     @serializable('disabled') _disabled: boolean;
     @serializable() errorMessages: DynamicValidatorsConfig | null;
-    @serializable() hidden: boolean;
+    @serializable('hidden') _hidden: boolean;
     @serializable() id: string;
     @serializable() label: string | null;
     @serializable() labelTooltip: string | null;
@@ -38,15 +38,17 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
     @serializable() validators: DynamicValidatorsConfig | null;
 
     private readonly disabled$: BehaviorSubject<boolean>;
+    private readonly hidden$: BehaviorSubject<boolean>;
 
     readonly disabledChanges: Observable<boolean>;
+    readonly hiddenChanges: Observable<boolean>;
 
     abstract readonly type: string;
 
     protected constructor(config: DynamicFormControlModelConfig, layout: DynamicFormControlLayout | null = null) {
         this.asyncValidators = config.asyncValidators ?? null;
         this.errorMessages = config.errorMessages ?? null;
-        this.hidden = isBoolean(config.hidden) ? config.hidden : false;
+        this._hidden = isBoolean(config.hidden) ? config.hidden : false;
         this.id = config.id;
         this.label = config.label ?? null;
         this.labelTooltip = config.labelTooltip ?? null;
@@ -61,6 +63,10 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
         this.disabled$ = new BehaviorSubject(this._disabled);
         this.disabled$.subscribe(disabled => this._disabled = disabled);
         this.disabledChanges = this.disabled$.asObservable();
+
+        this.hidden$ = new BehaviorSubject(this._hidden);
+        this.hidden$.subscribe(hidden => this._hidden = hidden);
+        this.hiddenChanges = this.hidden$.asObservable();
     }
 
     get disabled(): boolean {
@@ -69,6 +75,14 @@ export abstract class DynamicFormControlModel implements DynamicPathable {
 
     set disabled(disabled: boolean) {
         this.disabled$.next(disabled);
+    }
+
+    get hidden(): boolean {
+        return this.hidden$.getValue();
+    }
+
+    set hidden(hidden: boolean) {
+        this.hidden$.next(hidden);
     }
 
     get hasErrorMessages(): boolean {
