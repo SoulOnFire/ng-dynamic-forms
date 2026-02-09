@@ -104,8 +104,9 @@ export const ENABLE_AND_VISIBLE_MATCHER: DynamicFormControlMatcher = {
     if (model instanceof DynamicFormValueControlModel) {
       model.value = hasMatch ? undefined : model.value;
     }
-    model.disabled = hasMatch;
-    model.hidden = hasMatch;
+    HIDDEN_MATCHER.onChange(hasMatch, model, control, injector);
+    DISABLED_MATCHER.onChange(hasMatch, model, control, injector);
+
   }
 };
 
