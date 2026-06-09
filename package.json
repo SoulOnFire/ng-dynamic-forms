@@ -4,12 +4,12 @@
   "description": "A rapid form development library for Angular",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danielhokanson/ng-dynamic-forms.git"
+    "url": "git+https://github.com/SoulOnFire/ng-dynamic-forms.git"
   },
-  "author": "Udo Schöfer <ng2-dynamic-forms@udos86.de> (https://github.com/udos86/ng-dynamic-forms) - forked by Daniel Hokanson <nu-nya@business.com> (https://github.com/danielhokanson/ng-dynamic-forms)",
+  "author": "Udo Schöfer <ng2-dynamic-forms@udos86.de> (https://github.com/udos86/ng-dynamic-forms) - forked by Daniel Hokanson <nu-nya@business.com> (https://github.com/SoulOnFire/ng-dynamic-forms)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/danielhokanson/ng-dynamic-forms/issues"
+    "url": "https://github.com/SoulOnFire/ng-dynamic-forms/issues"
   },
   "homepage": "https://github.com/udos86/ng-dynamic-forms#readme",
   "schematics": "./schematics/collection.json",
