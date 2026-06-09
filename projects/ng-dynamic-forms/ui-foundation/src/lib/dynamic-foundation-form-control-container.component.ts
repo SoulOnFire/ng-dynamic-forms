@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChildren, EventEmitter, HostBinding, Input, Output, QueryList, Type, ViewChild, ViewChildren, ViewContainerRef, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, HostBinding, Input, Output, QueryList, Type, ViewChild, ViewChildren, ViewContainerRef, inject } from '@angular/core';
 import { UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
     DYNAMIC_FORM_CONTROL_TYPE_ARRAY,
@@ -45,7 +45,6 @@ import { NgClass, NgFor, NgTemplateOutlet, NgIf } from '@angular/common';
 })
 export class DynamicFoundationFormControlContainerComponent extends DynamicFormControlContainerComponent {
     protected changeDetectorRef: ChangeDetectorRef;
-    protected componentFactoryResolver: ComponentFactoryResolver;
     protected layoutService: DynamicFormLayoutService;
     protected validationService: DynamicFormValidationService;
     protected componentService: DynamicFormComponentService;
@@ -78,16 +77,14 @@ export class DynamicFoundationFormControlContainerComponent extends DynamicFormC
     // eslint-disable-next-line @angular-eslint/prefer-inject
     constructor() {
         const changeDetectorRef = inject(ChangeDetectorRef);
-        const componentFactoryResolver = inject(ComponentFactoryResolver);
         const layoutService = inject(DynamicFormLayoutService);
         const validationService = inject(DynamicFormValidationService);
         const componentService = inject(DynamicFormComponentService);
         const relationService = inject(DynamicFormRelationService);
 
-        super(changeDetectorRef, componentFactoryResolver, layoutService, validationService, componentService, relationService);
+        super(changeDetectorRef, layoutService, validationService, componentService, relationService);
     
         this.changeDetectorRef = changeDetectorRef;
-        this.componentFactoryResolver = componentFactoryResolver;
         this.layoutService = layoutService;
         this.validationService = validationService;
         this.componentService = componentService;

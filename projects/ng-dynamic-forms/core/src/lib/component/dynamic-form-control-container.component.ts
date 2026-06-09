@@ -1,6 +1,5 @@
 import {
     ChangeDetectorRef,
-    ComponentFactoryResolver,
     ComponentRef, Directive,
     EventEmitter,
     OnChanges,
@@ -78,8 +77,6 @@ export abstract class DynamicFormControlContainerComponent implements OnChanges,
     // TODO: Migrate to inject() function - base class constructor with multiple dependencies, requires careful migration
     // eslint-disable-next-line @angular-eslint/prefer-inject
     protected constructor(protected changeDetectorRef: ChangeDetectorRef,
-        // eslint-disable-next-line @angular-eslint/prefer-inject
-        protected componentFactoryResolver: ComponentFactoryResolver,
         // eslint-disable-next-line @angular-eslint/prefer-inject
         protected layoutService: DynamicFormLayoutService,
         // eslint-disable-next-line @angular-eslint/prefer-inject
@@ -223,10 +220,8 @@ export abstract class DynamicFormControlContainerComponent implements OnChanges,
         const componentType = this.componentType;
 
         if (componentType !== null && this.model && this.group) {
-            const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
-
             this.componentViewContainerRef.clear();
-            this.componentRef = this.componentViewContainerRef.createComponent(componentFactory);
+            this.componentRef = this.componentViewContainerRef.createComponent(componentType);
 
             const component = this.componentRef.instance;
 

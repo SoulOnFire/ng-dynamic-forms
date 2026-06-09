@@ -84,7 +84,7 @@ export class DynamicFormRelationService {
                     return true;
                 }
 
-                return condition.value === relatedFormControl.value || condition.status === relatedFormControl.status || regExCondition?.test(relatedFormControl.value) === true;
+                return condition.value == relatedFormControl.value || condition.status === relatedFormControl.status || regExCondition?.test(relatedFormControl.value) === true;
             }
 
             if (relatedFormControl && relation.match === matcher.opposingMatch) {
@@ -96,7 +96,7 @@ export class DynamicFormRelationService {
                     return false;
                 }
 
-                return !(condition.value === relatedFormControl.value || condition.status === relatedFormControl.status || regExCondition?.test(relatedFormControl.value) === true);
+                return !(condition.value == relatedFormControl.value || condition.status === relatedFormControl.status || regExCondition?.test(relatedFormControl.value) === true);
             }
 
             return false;
