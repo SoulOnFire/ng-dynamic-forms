@@ -196,6 +196,7 @@ export function primeNGUIFormControlMapFn(model: DynamicFormControlModel): Type<
     selector: 'dynamic-primeng-form-array',
     templateUrl: './dynamic-primeng-form-array.component.html',
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ReactiveFormsModule, NgClass, NgFor, NgTemplateOutlet, DynamicPrimeNGFormControlContainerComponent]
 })
 export class DynamicPrimeNGFormArrayComponent extends DynamicFormArrayComponent {
@@ -235,6 +236,7 @@ export class DynamicPrimeNGFormArrayComponent extends DynamicFormArrayComponent 
     selector: 'dynamic-primeng-form-group',
     templateUrl: './dynamic-primeng-form-group.component.html',
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [ReactiveFormsModule, NgClass, NgFor, DynamicPrimeNGFormControlContainerComponent]
 })
 export class DynamicPrimeNGFormGroupComponent extends DynamicFormGroupComponent {
