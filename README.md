@@ -59,7 +59,7 @@ npm i @soulonfire/ng-dynamic-forms-ui-material -S
 
 **1. Clone the Git repository**:
 ```
-git clone https://github.com/udos86/ng-dynamic-forms.git
+git clone https://github.com/SoulOnFire/ng-dynamic-forms.git
 cd ng-dynamic-forms
 ```
 
